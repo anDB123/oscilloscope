@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef } from "react";
 
 export default function SineCanvas(size: number, intensity: RefObject<number>, speed: RefObject<number>, spacing: RefObject<number>) {
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const phaseRef = useRef(0);
     const width = size;
     const height = size;
@@ -9,7 +9,9 @@ export default function SineCanvas(size: number, intensity: RefObject<number>, s
 
     useEffect(() => {
         const canvas = canvasRef.current;
+        if (!canvas) return;
         const ctx = canvas.getContext("2d");
+        if (!ctx) return;
         let animationFrameId: number;
 
         const draw = () => {

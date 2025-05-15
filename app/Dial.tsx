@@ -1,6 +1,6 @@
 import { RefObject, use, useRef, useState } from "react";
 export default function Dial(name: string, size: number, refValue: RefObject<number>, minVal: number, maxVal: number) {
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const angleRef = useRef(0);
 
 
@@ -10,7 +10,7 @@ export default function Dial(name: string, size: number, refValue: RefObject<num
     const textSize = size / 10;
     const [dragging, setDragging] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const handleMouseDown = (e) => {
+    const handleMouseDown = (e: { preventDefault?: any; clientX?: any; clientY?: any; }) => {
         e.preventDefault();
         setDragging(true);
         const { clientX, clientY } = e;
@@ -45,7 +45,7 @@ export default function Dial(name: string, size: number, refValue: RefObject<num
         );
     }
 
-    const handleScroll = (e) => {
+    const handleScroll = (e: { preventDefault?: any; deltaY?: any; }) => {
         e.preventDefault();
         const { deltaY } = e;
         if (deltaY > 0) {
